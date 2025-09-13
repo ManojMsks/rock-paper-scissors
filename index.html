@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getcomputerchoice(){
+            let x=Math.random();
+            if(x <0.33){
+                return "rock";
+            }
+            else if(x>=0.33 && x<0.66){
+                return "paper";
+            }
+            else{
+                return "scissors";
+            }
+        }
+        function getuserinput(){
+            let y=prompt("give me: ");
+            return y;
+        }
+        function playRound(humanChoice, computerChoice) {
+                if (humanChoice === computerChoice) {
+                    return -1;
+              } else if (
+                    (humanChoice === 'rock' && computerChoice === 'scissors') ||
+                     (humanChoice === 'paper' && computerChoice === 'rock') ||
+                    (humanChoice === 'scissors' && computerChoice === 'paper')
+                ) {
+                    return 1;
+                    
+                } else {
+                    return 0;
+                }
+        }
+        function helper(){
+            let hscore=0;
+            let cscore=0;
+            for(let i=0;i<5;i++){
+                let humanSelection = getuserinput();
+                humanSelection = humanSelection.toLowerCase();
+                let computerSelection = getcomputerchoice();
+                let a=playRound(humanSelection, computerSelection);
+                if(a==1){
+                    hscore++;
+                }
+                else if(a==0){
+                    cscore++;
+                }
+        }
+        if (hscore>cscore){
+            console.log("human");
+        }
+        else if(cscore > hscore){
+            console.log("comp");
+        }
+        else{
+            console.log("tie");
+        }
+    }
+    helper();
+    </script>
+</body>
+</html>
