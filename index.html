@@ -6,7 +6,18 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="userinput">
+        <button id="rock">rock</button>
+        <button id="paper">paper</button>
+        <button id="scissors">scissors</button>
+    </div>
+    <div class="results">
+        <p class="human"></p>
+        <p class="computer"></p>
+    </div>
     <script>
+        let hsscore=0;
+        let csscore=0;
         function getcomputerchoice(){
             let x=Math.random();
             if(x <0.33){
@@ -20,49 +31,40 @@
             }
         }
         function getuserinput(){
-            let y=prompt("give me: ");
-            return y;
+            const rock=document.querySelector("#rock");
+            const paper=document.querySelector("#paper");
+            const scissors=document.querySelector("#scissors");
+            rock.addEventListener("click" ,() => playRound("rock") );
+            paper.addEventListener("click" ,() => playRound("paper") );
+            scissors.addEventListener("click" ,() => playRound("scissors") );
         }
-        function playRound(humanChoice, computerChoice) {
+        function playRound(humanChoice) {
+            const computerChoice=getcomputerchoice();
                 if (humanChoice === computerChoice) {
-                    return -1;
+                    return;
               } else if (
                     (humanChoice === 'rock' && computerChoice === 'scissors') ||
                      (humanChoice === 'paper' && computerChoice === 'rock') ||
                     (humanChoice === 'scissors' && computerChoice === 'paper')
                 ) {
-                    return 1;
+                    hsscore++;
                     
                 } else {
-                    return 0;
+                    csscore++;
+                }
+                const h=document.querySelector(".human");
+                const c=document.querySelector(".computer");
+                h.textContent = `Player Score: ${hsscore}`;
+                c.textContent = `Computer Score: ${csscore}`;
+                if(hsscore==5){
+                    alert("human");
+                }
+                if(csscore==5){
+                    alert("computer");
                 }
         }
-        function helper(){
-            let hscore=0;
-            let cscore=0;
-            for(let i=0;i<5;i++){
-                let humanSelection = getuserinput();
-                humanSelection = humanSelection.toLowerCase();
-                let computerSelection = getcomputerchoice();
-                let a=playRound(humanSelection, computerSelection);
-                if(a==1){
-                    hscore++;
-                }
-                else if(a==0){
-                    cscore++;
-                }
-        }
-        if (hscore>cscore){
-            console.log("human");
-        }
-        else if(cscore > hscore){
-            console.log("comp");
-        }
-        else{
-            console.log("tie");
-        }
-    }
-    helper();
+        getuserinput();
+
     </script>
 </body>
 </html>
